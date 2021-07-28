@@ -9,7 +9,9 @@ export default new Vuex.Store({
     ADD_TODO(state, todo) {
       state.todoList.push(todo);
     },
-    SET_TODOS(state, todo)
+    SET_TODOS(state, todos) {
+      state.todoList = todos;
+    },
   },
   actions: {},
   modules: {},

@@ -11,7 +11,7 @@
       ></textarea>
       <input type="date" v-model="deadline" />
       <button type="submit">Add</button>
-      <button>Cancel</button>
+      <button @click="returnBack">Cancel</button>
     </form>
   </section>
 </template>
@@ -23,22 +23,36 @@ export default {
     title: "",
     description: "",
     deadline: "",
+    isExpired: false,
   }),
 
   methods: {
+    returnBack() {
+      this.$router.push({ name: "HomePage" });
+    },
     addTodo() {
-      if (!this.title || !this.description || !this.deadline) return;
+      if (!this.title || !this.description || !this.deadline) {
+        alert("Заполните все поля");
+        return;
+      }
 
-      console.log(this.$store);
+      let deadlineTime = new Date(this.deadline).setHours(23, 59, 59);
+
+      if (deadlineTime < Date.now()) {
+        alert("Некорректная Дата");
+        return;
+      }
 
       this.$store.commit("ADD_TODO", {
         title: this.title,
         description: this.description,
         created_at: Date.now(),
         isFinished: false,
+        isExpired: this.isExpired,
         updated_at: null,
-        deadline: new Date(this.deadline).valueOf(),
+        deadline: deadlineTime,
       });
+
       this.toHomePage();
     },
     toHomePage() {

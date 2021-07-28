@@ -22,6 +22,7 @@ export default {
 
   created() {
     const todos = localStorage.getItem("todos");
+    console.log(todos);
     if (todos) {
       this.$store.commit("SET_TODOS", JSON.parse(todos));
     }

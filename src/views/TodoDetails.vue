@@ -1,17 +1,23 @@
 <template>
   <section class="todo-details">
     <h2>Детали</h2>
-    <p class="todo__title">{{ todo.title }}</p>
-    <p class="todo__description">{{ todo.description }}</p>
-    <p class="todo__deadline">
-      Deadline: <span>{{ todo.deadline | formatDate }}</span>
-    </p>
-    <p class="todo__created">
-      Created: <span>{{ todo.created_at | formatDate }}</span>
-    </p>
-    <p class="todo__updated">
-      Updated: <span>{{ formatDateMethod() }}</span>
-    </p>
+    <div class="todo__header">
+      <span class="todo__button" @click="toHomePage"> Back</span>
+      <span class="todo__button" @click="changeTask"> Изменить</span>
+    </div>
+    <div class="wrapper">
+      <h3 class="todo__title">{{ todo.title }}</h3>
+      <h4 class="todo__description">{{ todo.description }}</h4>
+      <p class="todo__deadline">
+        Deadline: <span>{{ todo.deadline | formatDate }}</span>
+      </p>
+      <p class="todo__created">
+        Created: <span>{{ todo.created_at | formatDate }}</span>
+      </p>
+      <p class="todo__updated">
+        Updated: <span>{{ formatDateMethod() }}</span>
+      </p>
+    </div>
   </section>
 </template>
 
@@ -38,6 +44,9 @@ export default {
     this.todo = todo;
   },
   methods: {
+    toHomePage() {
+      this.$router.push({ name: "HomePage" });
+    },
     formatDateMethod() {
       if (!this.todo.updated_at) return "-";
       return new Intl.DateTimeFormat("ru-RU", {
@@ -46,10 +55,12 @@ export default {
         day: "numeric",
       }).format(new Date(this.todo.updated_at));
     },
+    changeTask() {
+      this.$router.push({ name: "ChangePage", params: { todo: this.todo } });
+    },
   },
   filters: {
     formatDate(value) {
-      console.log(value);
       return new Intl.DateTimeFormat("ru-RU", {
         year: "numeric",
         month: "numeric",
@@ -60,4 +71,18 @@ export default {
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  h4 {
+    margin: 3px;
+  }
+  p {
+    margin: 2px;
+    span {
+      color: red;
+    }
+  }
+}
+</style>

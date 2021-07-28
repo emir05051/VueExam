@@ -1,5 +1,6 @@
 <template>
   <div class="header">
+    <div class="add-button" @click="sort">Sort by date</div>
     <div class="add-button" @click="addTask">Add task</div>
   </div>
 </template>
@@ -11,6 +12,9 @@ export default {
     addTask() {
       this.$router.push({ path: "/add" });
     },
+    sort() {
+      this.$emit("sort-div");
+    },
   },
 };
 </script>
@@ -19,7 +23,7 @@ export default {
 .header {
   text-align: center;
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0.5rem 0.3rem;
 }
 .add-button {
