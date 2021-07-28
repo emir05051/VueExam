@@ -1,32 +1,53 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+    <MainLayout>
+      <router-view />
+    </MainLayout>
   </div>
 </template>
 
+<script>
+export default {
+  name: "App",
+
+  components: {
+    MainLayout: () => import("@/layouts/MainLayout.vue"),
+  },
+
+  computed: {
+    todoList() {
+      return this.$store.state.todoList;
+    },
+  },
+
+  created() {
+    const todos = localStorage.getItem("todos");
+    if (todos) {
+      this.$store.commit("SET_TODOS", JSON.parse(todos));
+    }
+    window.addEventListener("beforeunload", this.saveDatas);
+  },
+
+  methods: {
+    saveDatas() {
+      localStorage.setItem("todos", JSON.stringify(this.todoList));
+    },
+  },
+};
+</script>
+
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Cascadia Mono PL SemiLight", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
 }
-
-#nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+input,
+button {
+  padding: 0.4rem;
+  border: 1px solid #000;
+  outline: none;
 }
 </style>
