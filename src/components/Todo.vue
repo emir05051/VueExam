@@ -1,7 +1,11 @@
 <template>
   <div
     class="todo"
-    :class="{ expired: todo.isExpired, finished: todo.isFinished }"
+    :class="{
+      expired: todo.isExpired,
+      finished: todo.isFinished,
+      important: todo.isImportant,
+    }"
   >
     <div class="todo__header">
       <span @click="deleteTask" class="todo__button">УДалить</span>
@@ -13,6 +17,7 @@
       Deadline: <span>{{ todo.deadline | formatDate }}</span>
     </p>
     <p style="color: red" v-show="todo.isExpired">Expired</p>
+    <h1 style="color: blue" v-show="todo.isImportant">Важно</h1>
   </div>
 </template>
 
@@ -76,6 +81,9 @@ export default {
 }
 .finished {
   border: 2px solid green;
+}
+.important {
+  order: -1;
 }
 .finished h4,
 .finished p {

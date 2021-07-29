@@ -24,6 +24,25 @@
         />
         <label for="false">Нет</label>
       </div>
+      <p>Отметить как важное</p>
+      <div class="radiobutton">
+        <input
+          type="radio"
+          v-model="isImportant"
+          value="true"
+          name="Important"
+          id="true_important"
+        />
+        <label for="true_important">Да</label>
+        <input
+          type="radio"
+          v-model="isImportant"
+          value="false"
+          name="Important"
+          id="false_important"
+        />
+        <label for="false_important">Нет</label>
+      </div>
       <button type="submit">Change</button>
       <button @click="toHomePage">Cancel</button>
     </form>
@@ -40,6 +59,7 @@ export default {
     deadline: "",
     date: "",
     isFinished: false,
+    isImportant: false,
   }),
   mounted() {
     this.title = this.todoRoute.title;
@@ -84,11 +104,16 @@ export default {
         return;
       }
 
+      if (this.isFinished) {
+        this.isImportant = false;
+      }
+
       changeTodo.isFinished = this.isFinished;
       changeTodo.title = this.title;
       changeTodo.description = this.description;
       changeTodo.deadline = this.deadline;
       changeTodo.updated_at = Date.now().valueOf();
+      changeTodo.isImportant = this.isImportant;
 
       this.toHomePage();
     },

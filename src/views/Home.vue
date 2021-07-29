@@ -32,10 +32,12 @@ export default {
     sortDivs() {
       let itemsArray = [];
       let divs = document.querySelectorAll(".todo");
-      let parent = divs[0].parentNode;
+      let parent = document.querySelector(".main");
+
       for (let i = 0; i < divs.length; i++) {
         itemsArray.push(parent.removeChild(divs[i]));
       }
+
       itemsArray
         .sort((divA, divB) => {
           let textA = this.getText(divA);
@@ -47,7 +49,7 @@ export default {
           if (numberA < numberB) return -1;
           if (numberA > numberB) return 1;
 
-          return;
+          return 0;
         })
         .forEach(function (node) {
           parent.appendChild(node);
