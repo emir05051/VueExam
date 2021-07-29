@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <AppHeader @sort-div="sortDivs" />
+    <AppHeader @sort-div="sortDivs" @delete-all="deleteAllTasks" />
     <h2 class="title">Список</h2>
     <div v-if="todoList.length" class="todos"></div>
     <div v-else class="empty">Список пуст</div>
@@ -29,6 +29,9 @@ export default {
     },
   },
   methods: {
+    deleteAllTasks() {
+      this.todoList.splice(0, this.todoList.length);
+    },
     sortDivs() {
       let itemsArray = [];
       let divs = document.querySelectorAll(".todo");

@@ -58,11 +58,11 @@ export default {
     deleteTask() {
       let thisElementId = this.todo.created_at;
 
-      let element = this.$store.state.todoList.findIndex(
+      let elementIdx = this.$store.state.todoList.findIndex(
         (el) => el.created_at == thisElementId
       );
 
-      this.$store.state.todoList.splice(element, 1);
+      this.$store.state.todoList.splice(elementIdx, 1);
     },
   },
 };

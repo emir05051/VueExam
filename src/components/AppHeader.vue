@@ -1,6 +1,7 @@
 <template>
   <div class="header">
     <div class="add-button" @click="sort">Sort by date</div>
+    <div class="add-button" @click="deleteAll">Delete All</div>
     <div class="add-button" @click="addTask">Add task</div>
   </div>
 </template>
@@ -14,6 +15,9 @@ export default {
     },
     sort() {
       this.$emit("sort-div");
+    },
+    deleteAll() {
+      this.$emit("delete-all");
     },
   },
 };
