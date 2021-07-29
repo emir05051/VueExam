@@ -15,6 +15,7 @@
           id="true"
         />
         <label for="true">Да</label>
+
         <input
           type="radio"
           v-model="isFinished"

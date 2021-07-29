@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" :style="`color:${this.$store.state.fontColor}`">
     <MainLayout>
       <router-view />
     </MainLayout>
@@ -18,13 +18,18 @@ export default {
     todoList() {
       return this.$store.state.todoList;
     },
+    fontColor() {
+      return this.$store.state.fontColor;
+    },
   },
 
   created() {
     const todos = localStorage.getItem("todos");
-    console.log(todos);
+    const fontColor = localStorage.getItem("fontColor");
+
     if (todos) {
       this.$store.commit("SET_TODOS", JSON.parse(todos));
+      this.$store.commit("SET_COLOR", fontColor);
     }
     window.addEventListener("beforeunload", this.saveDatas);
   },
@@ -32,6 +37,7 @@ export default {
   methods: {
     saveDatas() {
       localStorage.setItem("todos", JSON.stringify(this.todoList));
+      localStorage.setItem("fontColor", this.fontColor);
     },
   },
 };

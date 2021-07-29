@@ -18,6 +18,20 @@
         Updated: <span>{{ formatDateMethod() }}</span>
       </p>
     </div>
+    <div class="footer" @click="animationDiv">
+      <div class="icon-1"></div>
+      <div class="footer-body"></div>
+      <div class="options">
+        <div>
+          <p>Background</p>
+          <input type="color" value="#FFFFFF" v-model="backgroundColor" />
+        </div>
+        <div>
+          <p>Font-Color</p>
+          <input type="color" value="#FFFFFF" v-model="fontColor" />
+        </div>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -27,6 +41,9 @@ export default {
 
   data: () => ({
     todo: null,
+    shift: 47.34375,
+    backgroundColor: "#ffffff",
+    fontColor: "#000000",
   }),
   computed: {
     todoId() {
@@ -43,6 +60,14 @@ export default {
     }
     this.todo = todo;
   },
+  watch: {
+    backgroundColor: (newValue) => {
+      document.body.style.backgroundColor = newValue;
+    },
+    fontColor: function (newValue) {
+      this.$store.commit("SET_COLOR", newValue);
+    },
+  },
   methods: {
     toHomePage() {
       this.$router.push({ name: "HomePage" });
@@ -58,6 +83,9 @@ export default {
     changeTask() {
       this.$router.push({ name: "ChangePage", params: { todo: this.todo } });
     },
+    animationDiv(e) {
+      e.target.parentNode.style.top = "90%";
+    },
   },
   filters: {
     formatDate(value) {
@@ -72,6 +100,58 @@ export default {
 </script>
 
 <style lang="scss">
+* {
+  margin: 0;
+  padding: 0;
+}
+p,
+h4,
+input {
+  margin: 10px;
+}
+#app {
+  margin: 0;
+}
+body {
+  overflow: hidden;
+}
+.todo-details {
+  height: 100vh;
+}
+.footer {
+  position: absolute;
+  top: 95%;
+  left: 50%;
+  transition: top 1s linear;
+  cursor: pointer;
+  p {
+    margin: 0;
+  }
+  input {
+    margin: 0;
+  }
+}
+.icon-1 {
+  border: 10px solid transparent;
+  border-bottom: 10px solid red;
+}
+.footer-body {
+  height: 30px;
+  width: 20px;
+  background-color: red;
+}
+.options {
+  height: 50px;
+  position: absolute;
+  left: -571px;
+  width: 1142px;
+  background-color: rgb(67, 133, 255);
+  align-items: center;
+  display: flex;
+  p {
+    color: #fff;
+  }
+}
 .wrapper {
   display: flex;
   flex-direction: column;

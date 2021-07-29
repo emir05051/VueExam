@@ -58,6 +58,7 @@ export default {
           parent.appendChild(node);
         });
     },
+
     getText(div) {
       let textDate = div.children[3].innerText.match(/\d+.{8}/g)[0];
       textDate = textDate.split(".");
