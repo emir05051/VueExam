@@ -33,7 +33,7 @@ export default {
       let itemsArray = [];
       let divs = document.querySelectorAll(".todo");
       let parent = divs[0].parentNode;
-      for (var i = 0; i < divs.length; i++) {
+      for (let i = 0; i < divs.length; i++) {
         itemsArray.push(parent.removeChild(divs[i]));
       }
       itemsArray
